@@ -1,0 +1,32 @@
+version: '3.4'
+
+services:
+
+  nodered:
+    # https://hub.docker.com/r/nodered/node-red-docker/
+    image: nodered/node-red-docker:0.18.4-v8
+    hostname: nodered
+    ports:
+      # Node-RED unencrypted TCP 1880
+      - mode: host
+        target: 1880
+        published: 1880
+        protocol: tcp
+    networks:
+      - nodered-net1
+    volumes:
+      - type: bind
+        source: /opt/nodered
+        target: /data
+    deploy:
+      placement:
+        constraints:
+          - node.labels.swarm.node == 1
+      labels:
+        local.description: "Node-RED"
+      restart_policy:
+        condition: on-failure
+
+networks:
+  nodered-net1:
+
