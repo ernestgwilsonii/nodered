@@ -8,6 +8,7 @@
 # Node-RED
 mkdir -p /opt/nodered
 chmod a+rw /opt/nodered
+chown -R 1001:1001 /opt/nodered
 
 ##########
 # Deploy #
